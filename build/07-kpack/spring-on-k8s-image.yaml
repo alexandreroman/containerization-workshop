@@ -1,0 +1,43 @@
+#! Here is a kpack definition you can use to build container images
+#! leveraging Cloud-native Buildpacks running in your Kubernetes cluster.
+#! This way you can easily rebase container images when you deploy
+#! new buildpack version.
+#! This is game changer for improved container security, as it's way easier
+#! to build and secure container images at scale through this mechanism.
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: spring-on-k8s
+spec:
+  #! Use a service account to get credentials for repository access.
+  serviceAccount: default
+
+  #! Set the resulting container image location.
+  tag: ghcr.io/alexandreroman/containerization-workshop-app:kpack
+
+  #! Reuse the same builder across many images to apply the same set
+  #! of buildpacks and configuration. When you update a builder,
+  #! images relying on this instance will be rebuilt.
+  builder:
+    kind: ClusterBuilder
+    name: default
+
+  #! You may want to tune buildpack configuration using environment
+  #! variables.
+  build:
+    env:
+    #! We want to use the latest JRE 17 implementation available:
+    #! this way this container image will be rebuilt in case there's
+    #! a new JRE version available (for instance: security updates).
+    - name: BP_JVM_VERSION
+      value: 17.*
+
+  #! The container image is built from the app source code.
+  #! You don't need to bring in compiler tools as this process
+  #! is fully managed by buildpacks.
+  #! Note that you can also use your own artifact
+  #! (for instance: built by your CI).
+  source:
+    git:
+      revision: master
+      url: https://github.com/alexandreroman/spring-on-k8s.git

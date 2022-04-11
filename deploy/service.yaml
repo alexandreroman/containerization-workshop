@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  # Create a cluster-scoped service on port 8080, which will redirect network traffic
+  # to any running pods listening on port 8080.
+  type: ClusterIP
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    # This selector is used to locate which pods this service is targeting.
+    role: app

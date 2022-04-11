@@ -1,0 +1,33 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - directory: {}
+    path: .
+  path: build/01-basics/app
+- contents:
+  - directory: {}
+    path: .
+  path: build/02-official-images/app
+- contents:
+  - directory: {}
+    path: .
+  path: build/03-run-as-non-root/app
+- contents:
+  - git:
+      commitTitle: Bump Maven version
+      sha: 8353566aec9740826b1af6289bc41ee935eff75c
+    path: .
+  path: build/04-multi-stage-builds/app
+- contents:
+  - git:
+      commitTitle: Bump Maven version
+      sha: 8353566aec9740826b1af6289bc41ee935eff75c
+    path: .
+  path: build/05-exploded/app
+- contents:
+  - git:
+      commitTitle: Bump Maven version
+      sha: 8353566aec9740826b1af6289bc41ee935eff75c
+    path: .
+  path: build/06-buildpacks/app
+kind: LockConfig

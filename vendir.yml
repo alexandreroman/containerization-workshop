@@ -1,0 +1,62 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+minimumRequiredVersion: 0.12.0
+directories:
+- path: build/01-basics/app
+  contents:
+  - path: .
+    directory:
+      path: app
+    includePaths:
+    - spring-on-k8s.jar
+
+- path: build/02-official-images/app
+  contents:
+  - path: .
+    directory:
+      path: app
+    includePaths:
+    - spring-on-k8s.jar
+
+- path: build/03-run-as-non-root/app
+  contents:
+  - path: .
+    directory:
+      path: app
+    includePaths:
+    - spring-on-k8s.jar
+
+- path: build/04-multi-stage-builds/app
+  contents:
+  - path: .
+    git:
+      url: https://github.com/alexandreroman/spring-on-k8s.git
+      ref: master
+    includePaths:
+    - .mvn/**/*
+    - mvnw
+    - src/**/*
+    - pom.xml
+
+- path: build/05-exploded/app
+  contents:
+  - path: .
+    git:
+      url: https://github.com/alexandreroman/spring-on-k8s.git
+      ref: master
+    includePaths:
+    - .mvn/**/*
+    - mvnw
+    - src/**/*
+    - pom.xml
+
+- path: build/06-buildpacks/app
+  contents:
+  - path: .
+    git:
+      url: https://github.com/alexandreroman/spring-on-k8s.git
+      ref: master
+    includePaths:
+    - .mvn/**/*
+    - src/**/*
+    - pom.xml
